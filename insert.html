@@ -1,0 +1,71 @@
+<html>
+<head>
+ <link rel="stylesheet" type="text/css" href="css/ionic.css">
+ <script type="text/javascript" src="js/jquery.js"></script>
+ <script type="text/javascript">
+ $(document).ready(function()
+ {
+ $("#insert").click(function(){
+ var pesos=$("#pesos").val();
+ var dolares=$("#dolares").val();
+ var yenes=$("#yenes").val();
+ var dataString="pesos="+pesos+"&dolares="+dolares+"&yenes="+yenes+"&insert=";
+ if($.trim(nota1).length>0 & $.trim(nota2).length>0 & $.trim(nota3).length>0)
+ {
+ $.ajax({
+ type: "POST",
+ url:"http://192.168.0.10/conver/insert.php",
+ data: dataString,
+ crossDomain: true,
+ cache: false,
+ beforeSend: function(){ $("#insert").val('Connecting...');},
+ success: function(data){
+ if(data=="success")
+ {
+ alert("inserted");
+ $("#insert").val('submit');
+ }
+ else if(data=="error")
+ {
+ alert("error");
+ }
+ }
+ });
+ }return false;
+ });
+ });
+ </script>
+</head>
+<body>
+ <div class="bar bar-header bar-positive" style="margin-bottom:80px;">
+ <h1 class="title">Insert Database</h1>
+ <a class="button button-clear" href="readjson.html">Read JSON</a>
+ </div><br/><br/>
+ <div class="list">
+ <input type="hidden" id="id" value=""/>
+ <div class="item">
+<input type="text" id="pesos">
+        <input type="button" value="convertir de pesos a dolares" onclick="convertir_a_dolares(document.getElementById('pesos').value)">
+            <br>
+        <input type="text" id="dolares">
+        <input type="button" value="convertir de dolares a pesos" onclick="convertir_a_pesos(document.getElementById('dolares').value)">
+            <br>
+        <input type="text" id="pesos">
+        <input type="button" value="convertir de pesos a yenes" onclick="convertir_a_yenes(document.getElementById('pesos').value)">
+            <br>
+        <input type="text" id="yenes">
+        <input type="button" value="convertir de yenes a pesos" onclick="convertir_a_pesosc(document.getElementById('yenes').value)">
+            <br>
+        <input type="text" id="pesos">
+        <input type="button" value="convertir de pesos a realbrasileño" onclick="convertir_a_rbrasileño(document.getElementById('realbrasileño').value)">
+            <br>
+        <input type="text" id="pesos">
+        <input type="button" value="convertir de realbrasileño a pesos" onclick="convertir_a_pesoc(document.getElementById('pesos').value)">
+
+ </div>
+ <div class="item">
+ <input type="button" id="insert" class="button button-block" value="Insert"/>
+ </div>
+ </div>
+</body>
+</html>
